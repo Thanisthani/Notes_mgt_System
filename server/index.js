@@ -3,12 +3,15 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import userRoute from "./routes/User.js";
+import userRoute from "./routes/user.js";
+import authRoute from "./routes/auth.js"
 
 const app = express();
 
 dotenv.config();
 
+
+// mongoDB
 const connect = async () => {
     try {
         await mongoose.connect(process.env.MONGO);
@@ -33,6 +36,7 @@ app.use(cors());
 
 
 app.use("/user", userRoute);
+app.use("/auth", authRoute);
 
 app.listen(8800, () => {
     connect()
