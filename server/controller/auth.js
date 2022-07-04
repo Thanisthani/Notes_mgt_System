@@ -26,7 +26,7 @@ exports.loginUser = async (req, res, next) => {
         
         const token = jwt.sign({ email: user.emaail, id: user._id, accountType: user.accountType }, process.env.JWT); //get token
         
-        res.status(200).json(user,token);
+        res.status(200).json(user);
     }
     catch (err)
     {

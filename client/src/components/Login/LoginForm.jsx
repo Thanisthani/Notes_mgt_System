@@ -1,12 +1,22 @@
 import React from 'react';
 import { Formik } from "formik"
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../actions/auth';
 
 function LoginForm() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email format").required("Email must be required !"),
     password: Yup.string().required("Password must be required !")
   });
+
+  const onSubmit = (values) => {
+    dispatch(login(values, navigate));
+  }  
   
   return (
     <Formik initialValues={{
@@ -14,7 +24,7 @@ function LoginForm() {
       password: "",
     }}
         validationSchema={validationSchema}
-    onSubmit={(values) => {console.log(values)}}>
+    onSubmit={(values) => {onSubmit(values)}}>
       {
           ({
             values,
