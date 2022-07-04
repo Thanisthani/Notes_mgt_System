@@ -1,10 +1,18 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
+// import express from 'express';
+// import mongoose from 'mongoose';
+// import cors from 'cors';
+// import dotenv from 'dotenv';
 
-import userRoute from "./routes/user.js";
-import authRoute from "./routes/auth.js"
+// import userRoute from "./routes/user.js";
+// import authRoute from "./routes/auth.js"
+
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const dotenv = require('dotenv');
+
+const userRoute = require("./routes/user");
+const authRoute = require("./routes/auth");
 
 const app = express();
 
