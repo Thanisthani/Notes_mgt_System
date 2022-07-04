@@ -37,9 +37,9 @@ function LoginForm() {
           }) => (
             <form onSubmit={handleSubmit}>
               
-              <h2>Email</h2>
+              <h2 className='mt-4 text-sm'>Email</h2>
               
-                  <input
+                  <input className='border-2 rounded-xl mt-2 p-2 text-sm w-[300px] border-blue-900'
              type="email"
              name="email"
              onChange={handleChange}
@@ -47,11 +47,11 @@ function LoginForm() {
              value={values.email}
               />
               
-              {errors.email && touched.email && errors.email}
+             <h6 className='text-red-500 text-sm mt-1'> {errors.email && touched.email && errors.email} </h6>
               
-              <h2>Password</h2>
+              <h2 className='mt-3 text-sm'>Password</h2>
               
-              <input
+              <input  className='border-2 rounded-xl mt-2 p-2 text-sm w-[300px] border-blue-900'
                 type="password"
                 name="password"
                 onChange={handleChange}
@@ -59,10 +59,10 @@ function LoginForm() {
                 value={values.password}
                    />
               
-              <h3>{errors.password && touched.password && errors.password}</h3>
+              <h6 className='text-red-500 text-sm mt-1'>{errors.password && touched.password && errors.password}</h6>
               
-       <button type="submit" className="bg-blue-500 text-white" disabled={isSubmitting}>
-         Submit
+       <button type="submit" className="bg-blue-900 rounded-xl text-sm text-white mt-3 py-2 hover:font-medium w-full  hover:bg-white hover:border-2 hover:text-blue-900 hover:border-blue-900" disabled={isSubmitting}>
+         Log In
        </button>
               </form>
           )
