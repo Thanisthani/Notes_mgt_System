@@ -1,9 +1,13 @@
 import React from 'react'
+import Header from '../components/Dashboard/Header'
+import UserList from '../components/Dashboard/UserList'
 
 function Dashboard() {
   return (
-      <div>
-          <h1>Welcome to admin Dashboard</h1>
+      <div className=''>
+          
+      <Header />
+      <UserList />
     </div>
   )
 }

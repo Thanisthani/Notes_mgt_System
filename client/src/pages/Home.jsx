@@ -1,9 +1,12 @@
 import React from 'react'
+import Header from '../components/Home/Header'
+import NotesList from '../components/Home/NotesList'
 
 function Home() {
   return (
       <div>
-          <h1>Welcome to my page</h1>
+      <Header />
+      <NotesList />
     </div>
   )
 }
