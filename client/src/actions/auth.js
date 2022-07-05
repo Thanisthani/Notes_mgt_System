@@ -6,7 +6,14 @@ export const login = (formData, navigate) => async (dispatch) => {
         const { data } = await api.logIn(formData);
 
         dispatch({ type: AUTH, data });
-        navigate("/");
+        if (data.user.accountType == "Admin")
+        {
+            navigate("/dashboard");
+        }
+        else {
+            navigate("/"); 
+        }
+        
     }
     catch (error)
     {

@@ -2,13 +2,20 @@ const jwt = require('jsonwebtoken');
 
 exports.auth = async (req, res, next) =>
 {
+    console.log("something" ,req.headers)
     try {
-        const token = req.headers.authorization.split(" ")[1];
-        let decodedData = jwt.verify(token, process.env.JWT);
+        if (req.headers.authorization) {
+            const token = req.headers.authorization.split(" ")[1];
+            let decodedData = jwt.verify(token, process.env.JWT);
 
-        res.userId = decodedData?.id;
+            res.userId = decodedData?.id;
+            res.role = decodedData?.accountType;
 
-        next();
+            next();
+        }
+        else {
+            res.status(404).json(req.headers);
+        }
     }
     catch (error)
     {
@@ -16,4 +23,13 @@ exports.auth = async (req, res, next) =>
     }
   
     
+}
+
+exports.authRole = (role) => {
+    try {
+        
+    } catch (err)
+    {
+        console.log(error);
+    }
 }

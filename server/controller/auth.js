@@ -24,9 +24,9 @@ exports.loginUser = async (req, res, next) => {
         if (!isPasswordCorrect)
             return next(createError(400, "Wrong password or email"));
         
-        const token = jwt.sign({ email: user.emaail, id: user._id, accountType: user.accountType }, process.env.JWT); //get token
+        const token = jwt.sign({ email: user.email, id: user._id, accountType: user.accountType }, process.env.JWT); //get token
         
-        res.status(200).json(user);
+        res.status(200).json({user,token});
     }
     catch (err)
     {
