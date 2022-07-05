@@ -6,14 +6,14 @@ const { createUser,getAllUser,getOneUser } = require('../controller/user');
 
 const router = express.Router();
 
-const {auth} = require("../middleware/auth"); //middleware
+const {auth, authRole} = require("../middleware/auth"); //middleware
 
 //create user
 
 router.post("/", createUser);
 
 // get all user
-router.get("/", auth,getAllUser);
+router.get("/", auth,authRole("Admin"),getAllUser);
 
 // get one user
 

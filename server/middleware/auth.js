@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-exports.auth = async (req, res, next) =>
+const auth = async (req, res, next) =>
 {
-    console.log("something" ,req.headers)
     try {
         if (req.headers.authorization) {
             const token = req.headers.authorization.split(" ")[1];
@@ -11,10 +10,11 @@ exports.auth = async (req, res, next) =>
             res.userId = decodedData?.id;
             res.role = decodedData?.accountType;
 
+
             next();
         }
         else {
-            res.status(404).json(req.headers);
+            res.status(404).json("token not found");
         }
     }
     catch (error)
@@ -25,11 +25,21 @@ exports.auth = async (req, res, next) =>
     
 }
 
-exports.authRole = (role) => {
-    try {
-        
-    } catch (err)
-    {
-        console.log(error);
+function authRole(role) {
+    return (req, res, next) => {
+        if (res.role != role) {
+
+        res.status(401)
+        return res.send('Not allowed')
+        }
+
+  
+      next()
     }
 }
+  
+
+module.exports = {
+    auth,
+    authRole
+  }
