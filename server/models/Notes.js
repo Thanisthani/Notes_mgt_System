@@ -14,7 +14,7 @@ const NoteSchema = new mongoose.Schema({
         require:true
     },
     userid: {
-        type: Number,
+        type: String,
         require:true
     },
     

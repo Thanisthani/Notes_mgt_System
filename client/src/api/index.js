@@ -16,3 +16,13 @@ export const logIn = (formData) => API.post('/auth/login', formData);
 export const signUP = (formData) => API.post('/user', formData);
 
 export const getAll = () => API.get('/user');
+
+export const createNote = (formData) => API.post('/notes', formData);
+
+export const getNote = () => API.get('/notes/get');
+
+export const deleteNote = (id) => API.delete(`/notes/delete/${id}`);
+
+export const updateNote = (id, formData) => API.put(`/notes/update/${id}`, formData);
+
+export const getOneNote = (id) => API.get(`/notes/get/${id}`);

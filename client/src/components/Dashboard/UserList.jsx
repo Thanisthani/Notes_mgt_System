@@ -13,7 +13,7 @@ function UserList() {
     setUsers(data);
     await setisLoading(false);
     }
-
+ 
     useEffect(() => {
       fetchUser();
     },[]);

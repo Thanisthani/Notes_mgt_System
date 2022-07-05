@@ -13,7 +13,7 @@ const dotenv = require('dotenv');
 
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
-const notesRoute = require("./routes/notes")
+const notesRoute = require("./routes/notes");
 
 const app = express();
 
@@ -43,10 +43,10 @@ app.use(express.json());
 
 app.use(cors());
 
-
+app.use("/notes",notesRoute);
 app.use("/user", userRoute);
 app.use("/auth", authRoute);
-app.use("/notes", notesRoute);
+
 
 app.listen(8800, () => {
     connect()

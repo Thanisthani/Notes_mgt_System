@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { fetchNote,createNote,deleteNote,updatenote } = require("../controller/notes");
+const { fetchNote,createNote,deleteNote,updatenote,getNote } = require("../controller/notes");
 
 // fecth notes
 
@@ -18,3 +18,8 @@ router.delete("/delete/:id", deleteNote);
 // update note
 router.put("/update/:id", updatenote);
 
+//  get note
+
+router.get("/get/:id", getNote);
+
+module.exports = router; 
