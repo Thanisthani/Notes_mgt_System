@@ -2,7 +2,7 @@
 // import { createUser } from '../controller/user.js';
 
 const express = require('express');
-const { createUser,getAllUser,getOneUser,register } = require('../controller/user');
+const {getAllUser,getOneUser,register,addUserDetails } = require('../controller/user');
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ const {auth, authRole} = require("../middleware/auth"); //middleware
 
 //create user
 
-router.post("/", createUser);
+router.post("/add", addUserDetails);
 
 // get all user
 router.get("/", auth,authRole("Admin"),getAllUser);

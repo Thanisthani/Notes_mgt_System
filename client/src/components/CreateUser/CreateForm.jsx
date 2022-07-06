@@ -15,7 +15,7 @@ function CreateForm() {
         await api.register(values).then(() => {
             navigate("/dashboard");
         })
-        console.log(values);
+       
     }
   return (
     <Formik initialValues={{

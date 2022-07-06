@@ -6,28 +6,33 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const { createError } = require('../utils/error');
+const jwt = require('jsonwebtoken')
 
 
 // create user
-exports.createUser = async (req, res,next) => {
+exports.addUserDetails = async (req, res,next) => {
     try {
+
+        const token = req.headers.authorization.split(" ")[1];
+        let decodedData = jwt.verify(token, process.env.JWT);
+        const userId = decodedData?.id;
+
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
-
-        const newUser = new User({
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            email: req.body.email,
-            dateOfBirth: req.body.dateOfBirth,
-            mobile: req.body.mobile,
-            status: req.body.status,
-            password: hash,
-            accountType: req.body.accountType,
         
-        }); 
+        const updateUser = await User.findByIdAndUpdate(
+            userId,
+            {
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                dateOfBirth: req.body.dateOfBirth,
+                mobile: req.body.mobile,
+                password: hash
+            },
+            { new: true }
+        );
 
-            const savedUser = await newUser.save()
-            res.status(200).json(savedUser)
+            res.status(200).json(updateUser)
     }
     catch (err)
     {

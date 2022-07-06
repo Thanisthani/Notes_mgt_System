@@ -7,6 +7,7 @@ const CLIENT_ID = '121419066625-u9dmc2iqrahudjg1bsvh86v4jj4l7s11.apps.googleuser
 const CLIENT_SECRET = "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"
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
 
+
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID,CLIENT_SECRET,REDIRECT_URI);
 oAuth2Client.setCredentials({refresh_token:REFRESH_TOKEN});
 
@@ -25,7 +26,7 @@ module.exports = async (email, subject, text) => {
 				accessToken:accessToken
 			},
 		});
-		const url = `${process.env.BASE_URL}/login`;
+		const url = `${process.env.BASE_URL}login`;
 		const mailOptions = {
 			from: `QuarantineCoders <${process.env.USER}>`,
 			to: email,
@@ -39,7 +40,7 @@ module.exports = async (email, subject, text) => {
 		return result
 
 	} catch (error) {
-		console.log("email not sent!");
+		console.log("email not sent!", process.env.CLIENT_ID);
 		console.log(error);
 		return error;
 	}
