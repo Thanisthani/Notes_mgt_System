@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import CreateNote from './pages/CreateNote';
 import UpdateNote from './pages/UpdateNote';
+import CreateUser from './pages/CreateUser';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           < Route path="/" exact element={<Home />} />
           < Route path="/create" exact element={<CreateNote />} />
           < Route path="/update/:id" exact element={<UpdateNote />} />
+          < Route path="/user" exact element={<CreateUser />} />
         </Routes>
       </Router>
     </div>

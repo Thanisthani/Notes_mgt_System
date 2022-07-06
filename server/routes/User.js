@@ -2,7 +2,7 @@
 // import { createUser } from '../controller/user.js';
 
 const express = require('express');
-const { createUser,getAllUser,getOneUser } = require('../controller/user');
+const { createUser,getAllUser,getOneUser,register } = require('../controller/user');
 
 const router = express.Router();
 
@@ -19,5 +19,8 @@ router.get("/", auth,authRole("Admin"),getAllUser);
 
 router.get("/:id", auth, getOneUser);
 
+// create user by admin
+
+router.post("/register", register);
 
 module.exports = router; 

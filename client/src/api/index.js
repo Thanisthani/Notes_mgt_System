@@ -26,3 +26,5 @@ export const deleteNote = (id) => API.delete(`/notes/delete/${id}`);
 export const updateNote = (id, formData) => API.put(`/notes/update/${id}`, formData);
 
 export const getOneNote = (id) => API.get(`/notes/get/${id}`);
+
+export const register = (formData) => API.post('/user/register', formData);

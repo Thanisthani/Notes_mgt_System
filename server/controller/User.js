@@ -3,9 +3,9 @@
 // import { createError } from '../utils/error.js';
 
 
-const User = require('../models/User')
-const bcrypt = require('bcryptjs')
-const { createError } = require('../utils/error')
+const User = require('../models/User');
+const bcrypt = require('bcryptjs');
+const { createError } = require('../utils/error');
 
 
 // create user
@@ -64,3 +64,38 @@ exports.getOneUser = async (req, res, next) => {
     }
 }
 
+const generator = require('generate-password');
+const sendMail = require('../utils/sendEmail')
+
+// create user by admin
+
+exports.register = async (req, res, next) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (user)
+            return next(createError(400, "User exists !"));
+        
+        const password = generator.generate({
+            length: 10,
+            numbers: true
+        });
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(password, salt);
+
+        const newUser = new User({
+            email: req.body.email,
+            password: hash,
+            accountType: req.body.accountType,
+        
+        }); 
+
+        const savedUser = await newUser.save()
+        
+        await sendMail(newUser.email,"Login credential for notes management system", password)
+            res.status(200).json(savedUser)
+    }
+    catch (err)
+    {
+        next(createError(400, err));
+    }
+}
