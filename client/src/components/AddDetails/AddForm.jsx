@@ -7,8 +7,11 @@ import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import * as api from "../../api/index";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import moment from 'moment';
 
 function AddForm() {
+  const dispatch = useDispatch();
   const [mobile, setMobile] = useState();
   const [dob, setdob] = useState(new Date());
 
@@ -24,11 +27,12 @@ function AddForm() {
       {
         firstname: values.firstname,
         lastname: values.lastname,
-        dateOfBirth: dob,
+        dateOfBirth:dob,
         mobile: mobile,
         password: values.password
       }
     ).then((response) => {
+      dispatch({ type: 'LOGOUT' });
       navigate("/login");
     });
     

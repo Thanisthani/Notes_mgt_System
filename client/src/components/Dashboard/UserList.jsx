@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import * as api from "../../api/index"
 import BeatLoader from 'react-spinners/BeatLoader';
+import Popup from './Popup';
 
 function UserList() {
   const [users, setUsers] = useState([]);
+  const [puser, setPuser] = useState();
   const [isLoading, setisLoading] = useState(false);
+  const [isOpen, setIsopen] = useState(false);
+
+  const toggleOpen = (user) => {
+    console.log(user);
+    setIsopen(!isOpen);
+    setPuser(user);
+    
+  };
 
   const fetchUser = async () =>
   {
@@ -24,10 +34,21 @@ function UserList() {
             <h2 className='mb-5'>User List</h2>
             {users.map((user) =>
             (
-              <div key={user._id} className='flex justify-between w-[260px] border-b-4 py-3'>
-                <h5> {user.firstname}</h5>
-                <h5>{user.accountType}</h5>
+              <div key={user._id}>
+                {/* popup */}
+                <Popup puser={ puser} show={isOpen} handle={() => setIsopen(false)} />
+                
+                <button key={user._id} className='flex hover:bg-blue-100 px-4 justify-between w-[260px] border-b-4 py-3'
+                  onClick={() => toggleOpen(user)}>
+                  <h5> {user.firstname}</h5>
+                  <h5>{user.accountType}</h5>
+                </button>
+
+                
+                
+
               </div>
+            
             ))}
         
           </div>
