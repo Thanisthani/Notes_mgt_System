@@ -8,12 +8,14 @@ import PhoneInput from 'react-phone-number-input';
 import * as api from "../../api/index";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import moment from 'moment';
+import SucessPopup from './SucessPopup';
+
 
 function AddForm() {
   const dispatch = useDispatch();
   const [mobile, setMobile] = useState();
   const [dob, setdob] = useState(new Date());
+  const [isOpen, setIsopen] = useState(false);
 
   const navigate = useNavigate();
   
@@ -33,13 +35,23 @@ function AddForm() {
       }
     ).then((response) => {
       dispatch({ type: 'LOGOUT' });
-      navigate("/login");
+      toggleOpen();
+      // navigate("/login");
+
     });
     
     console.log(values);
-    } 
+  } 
+  
+
+  // popup
+  const toggleOpen = () => {
+    setIsopen(!isOpen);
+  };
     
   return (
+    <>
+      <SucessPopup show={isOpen} />
     <Formik initialValues={{
           firstname: "",
           lastname: "",
@@ -90,14 +102,7 @@ function AddForm() {
                     {/* dateOfBirth */}
 
                     <h2 className='mt-4 text-sm'>Date Of Birth</h2>
-                
-                    {/* <input className='border-2 rounded-xl mt-2 p-2 text-sm w-[300px] border-blue-900'
-               type="text"
-               name="lastname"
-               onChange={handleChange}
-               onBlur={handleBlur}
-               value={values.lastname}
-                /> */}
+              
                 
                 <DatePicker className='border-2 rounded-xl mt-2 p-2 text-sm w-[300px] border-blue-900' selected={dob} onChange={(date) => setdob(date)} />
                     
@@ -135,7 +140,9 @@ function AddForm() {
                 </form>
             )
        }
-  </Formik>
+      </Formik>
+    </>
+    
   )
 }
 
