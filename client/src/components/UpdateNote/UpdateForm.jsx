@@ -30,8 +30,9 @@ function UpdateForm({ id }) {
     }
 
     useEffect(() => {
+       
         fetchNote();
-        console.log(note.title, "notes");
+      
     }, []);
 
     return (

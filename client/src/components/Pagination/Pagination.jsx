@@ -18,7 +18,7 @@ function Pagination({ page, pages, changePage }) {
                 <button className='bg-gray-400 px-3 py-1  mr-5  hover:bg-gray-300 focus:ring disabled:bg-blue-900 disabled:text-white'
                     onClick={() => changePage((page) => page - 1) }
                     disabled={page === 1}>&#171;</button>
-                
+                {/* changePage((page) => page - 1) () => changePage((page) => page + 1) */}
                 {middlePagination}
                 
 

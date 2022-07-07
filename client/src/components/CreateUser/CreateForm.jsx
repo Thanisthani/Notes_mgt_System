@@ -13,7 +13,7 @@ function CreateForm() {
 
     const onSubmit = async (values) => {
         await api.register(values).then(() => {
-            navigate("/dashboard");
+            navigate("/dashboard/1");
         })
        
     }

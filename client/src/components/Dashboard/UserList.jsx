@@ -2,31 +2,39 @@ import React, { useEffect, useState } from 'react'
 import * as api from "../../api/index"
 import BeatLoader from 'react-spinners/BeatLoader';
 import Popup from './Popup';
+import Pagination from '../Pagination/Pagination';
 
-function UserList() {
+function UserList({pageno}) {
   const [users, setUsers] = useState([]);
   const [puser, setPuser] = useState();
   const [isLoading, setisLoading] = useState(false);
   const [isOpen, setIsopen] = useState(false);
+  const [page, setPage] = useState(pageno);
+  const [tpages, setTpages] = useState();
 
+  // popup
   const toggleOpen = (user) => {
     console.log(user);
     setIsopen(!isOpen);
-    setPuser(user);
+    setPuser(user); 
     
   };
 
-  const fetchUser = async () =>
-  {
-    setisLoading(true);
-    const { data } = await api.getAll();
-    setUsers(data);
-    await setisLoading(false);
-    }
+  
  
-    useEffect(() => {
+  useEffect(() => {
+    const fetchUser = async () =>
+    {
+      setisLoading(true);
+      // const { data } = await api.getAll();
+      await api.getAll(page).then(async (res) => {
+        await setUsers(res.data.data);
+         setTpages(res.data.pages);
+       });
+      await setisLoading(false);
+      }
       fetchUser();
-    },[]);
+    },[page]);
     return (
       <div className='flex justify-center'>
         {isLoading ? <div className='mt-64 '><BeatLoader loading={isLoading} color="#1e0e80"/> </div> :
@@ -53,7 +61,9 @@ function UserList() {
         
           </div>
         }
-       
+        <div className='fixed bottom-28'>
+          <Pagination page={page} pages={tpages} changePage={setPage} />
+       </div>
       
             </div>
       

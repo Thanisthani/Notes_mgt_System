@@ -28,10 +28,10 @@ function LoginForm() {
       {
           if (response.data.user.accountType === "Admin")
           {
-              navigate("/dashboard");
+              navigate("/dashboard/1");
           }
           else {
-              navigate("/home"); 
+              navigate("/home/1"); 
           }
       }
       else {

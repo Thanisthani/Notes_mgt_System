@@ -15,7 +15,7 @@ export const logIn = (formData) => API.post('/auth/login', formData);
 
 export const signUP = (formData) => API.post('/user', formData);
 
-export const getAll = () => API.get('/user');
+export const getAll = (page) => API.get(`/user?page=${page}`); 
 
 export const createNote = (formData) => API.post('/notes', formData);
 

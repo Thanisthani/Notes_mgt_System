@@ -44,8 +44,28 @@ exports.addUserDetails = async (req, res,next) => {
 
 exports.getAllUser = async (req, res, next) => {
     try {
-        const users = await User.find();
-        res.status(200).json(users);
+        // const users = await User.find();
+        // pagination
+
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = parseInt(req.query.limit) || 2;
+        const skip = (page - 1) * pageSize;
+        const total =await User.find().countDocuments();
+        const pages = Math.ceil(total / pageSize);
+
+        let query = await User.find().skip(skip).limit(pageSize);
+
+        const result = await query;
+
+       
+        res.status(200).json({
+            page,
+            pages,
+            count: result.length,
+            data: result
+            });
+       
+
     }
     catch (err)
     {

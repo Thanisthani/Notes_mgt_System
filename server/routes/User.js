@@ -11,7 +11,7 @@ const {auth, authRole} = require("../middleware/auth"); //middleware
 //create user
 
 router.post("/add", addUserDetails);
-
+// 
 // get all user
 router.get("/", auth,authRole("Admin"),getAllUser);
 
