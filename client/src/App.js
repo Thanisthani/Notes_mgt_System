@@ -20,7 +20,7 @@ function App() {
         <Routes>
           < Route path="/" exact element={<Login />} />    
           < Route path="/dashboard" exact element={<Dashboard />} />
-          < Route path="/home" exact element={<Home />} />
+          < Route path="/home/:pageno" exact element={<Home />} />
           < Route path="/create" exact element={<CreateNote />} />
           < Route path="/update/:id" exact element={<UpdateNote />} />
           < Route path="/user" exact element={<CreateUser />} />

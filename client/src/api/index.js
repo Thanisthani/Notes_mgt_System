@@ -19,7 +19,7 @@ export const getAll = () => API.get('/user');
 
 export const createNote = (formData) => API.post('/notes', formData);
 
-export const getNote = () => API.get('/notes/get');
+export const getNote = (page) => API.get(`/notes/get?page=${page}`);
 
 export const deleteNote = (id) => API.delete(`/notes/delete/${id}`);
 

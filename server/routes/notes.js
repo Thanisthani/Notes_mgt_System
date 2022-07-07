@@ -6,8 +6,9 @@ const { fetchNote, createNote, deleteNote, updatenote, getNote } = require("../c
 const {auth, authRole} = require("../middleware/auth"); //middleware
 
 // fecth notes
+// 
 
-router.get("/get", auth,authRole("User") ,fetchNote);
+router.get("/get" , auth,authRole("User"),fetchNote);
 
 // create note
 

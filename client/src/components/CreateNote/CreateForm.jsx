@@ -15,7 +15,7 @@ function CreateForm() {
     const onSubmit = async(values) => {
         await api.createNote(values).then(() =>
         {
-            navigate("/");
+            navigate("/home/1");
 })
         
     }

@@ -17,7 +17,7 @@ function UpdateForm({ id }) {
 
     const onSubmit = async (values) => {
         await api.updateNote(id,values).then(() => {
-            navigate("/");
+            navigate("/home/1");
         })
         
     }

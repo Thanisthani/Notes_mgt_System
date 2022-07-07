@@ -2,17 +2,24 @@ import React , { useEffect, useState } from 'react'
 import * as api from "../../api/index"
 import { Link } from 'react-router-dom';
 import BeatLoader from 'react-spinners/BeatLoader';
+import Pagination from '../Pagination/Pagination';
 
-function NotesList() {
+function NotesList({pageno}) {
   const [notes,setNotes] = useState([]);
-  const [isLoading,setisLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
+  const [page, setPage] = useState(pageno);
+  const [tpages, setTpages] = useState();
 
   const fetchNotes = async () =>
   {
     setisLoading(true);
-    const { data } = await api.getNote();
-    setNotes(data);
-    await setisLoading(false);
+    await api.getNote(page).then(async (res) => {
+     await setNotes(res.data.data);
+      setTpages(res.data.pages);
+      console.log(notes);
+
+    });
+    await setisLoading(false); 
    
   }
 
@@ -20,11 +27,16 @@ function NotesList() {
     await api.deleteNote(id).then(() =>fetchNotes());
   }
 
+  // set page
+
+
   useEffect(() => {
     fetchNotes();
+    console.log("pages soh" ,tpages);
     
-  }, []);
+  }, [page]);
   
+
 
   return (
     <div className='flex justify-center'>
@@ -45,17 +57,17 @@ function NotesList() {
          </div>
 
        ))}
-
+          
+          
      </div>
       }
-      {/*         
-          <div className='flex justify-between w-[500px] border-b-4 py-3' >
-                  <h5>qbflirbiuubfarfbdo;n</h5>
-                  <div className='flex '>
-                  <h5 className='uppercase  text-white text-sm bg-green-800 py-1 px-3 mx-5'> Update</h5>
-                  <h5 className='uppercase  text-white text-sm bg-red-800 py-1 px-3'> Delete</h5>
-                  </div>
-          </div> */}
+
+      <div className='fixed bottom-28'>
+        
+           
+           <Pagination page={page} pages={tpages} changePage={setPage} />
+         </div>
+      
     </div>
    
   )
