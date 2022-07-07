@@ -15,14 +15,14 @@ exports.loginUser = async (req, res, next) => {
     try {
         const user = await User.findOne({ email: req.body.email });
         if (!user)
-            return next(createError(400, "User not found !"));
+            return res.status(400).json("User not found !");
         
         const isPasswordCorrect = await bcrypt.compare(req.body.password,
             user.password)
         
 
         if (!isPasswordCorrect)
-            return next(createError(400, "Wrong password or email"));
+            return res.status(400).json(" Wrong password !");
         
         const token = jwt.sign({ email: user.email, id: user._id, accountType: user.accountType }, process.env.JWT); //get token
         

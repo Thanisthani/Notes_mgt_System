@@ -6,7 +6,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import * as api from "../../api/index";
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import SucessPopup from './SucessPopup';
 
@@ -17,8 +16,6 @@ function AddForm() {
   const [dob, setdob] = useState(new Date());
   const [isOpen, setIsopen] = useState(false);
 
-  const navigate = useNavigate();
-  
     const validationSchema = Yup.object({
         firstname: Yup.string().required("Email must be required !"),
         password: Yup.string().required("Password must be required !")

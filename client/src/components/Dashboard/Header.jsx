@@ -9,7 +9,7 @@ function Header() {
 
   const logOut = async() => {
     await dispatch({ type: 'LOGOUT' });
-    navigate("/login");
+    navigate("/");
 
   }
     return (

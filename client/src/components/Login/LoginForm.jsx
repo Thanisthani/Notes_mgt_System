@@ -1,24 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik } from "formik"
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../actions/auth';
+import * as api from "../../api/index";
+import ErrorPopup from './ErrorPopup';
 
 function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isOpen, setIsopen] = useState(false);
+  const [error, setError] = useState();
+
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email format").required("Email must be required !"),
     password: Yup.string().required("Password must be required !")
   });
 
-  const onSubmit = (values) => {
-    dispatch(login(values, navigate));
-  }  
+  const onSubmit = async (values) => {
+    // dispatch(login(values, navigate));
+    await api.logIn(values).then((response) => {
+      localStorage.setItem('profile', JSON.stringify(response.data ));
+      console.log(response.data);
+      if (response.data.user.firstname)
+      {
+          if (response.data.user.accountType === "Admin")
+          {
+              navigate("/dashboard");
+          }
+          else {
+              navigate("/home"); 
+          }
+      }
+      else {
+          navigate("/add"); 
+      }
+
+    }).catch((error) =>
+    {
+      console.log(error.response);
+      setError(error.response.data);
+      toggleOpen();
+    }
+
+    );
+  }   
   
+   // popup
+   const toggleOpen = () => {
+     setIsopen(!isOpen);
+    
+  };
+
+
   return (
+    <>
+      <ErrorPopup show={isOpen} handle={toggleOpen} error={ error} />
     <Formik initialValues={{
       email: "",
       password: "",
@@ -61,13 +100,14 @@ function LoginForm() {
               
               <h6 className='text-red-500 text-sm mt-1'>{errors.password && touched.password && errors.password}</h6>
               
-       <button type="submit" className="bg-blue-900 rounded-xl text-sm text-white mt-3 py-2 hover:font-medium w-full  hover:bg-white hover:border-2 hover:text-blue-900 hover:border-blue-900" disabled={isSubmitting}>
+       <button type="submit" className="bg-blue-900 rounded-xl text-sm text-white mt-3 py-2 hover:font-medium w-full  hover:bg-white hover:border-2 hover:text-blue-900 hover:border-blue-900" >
          Log In
        </button>
               </form>
           )
      }
-</Formik>
+      </Formik>
+      </>
   )
 }
 
