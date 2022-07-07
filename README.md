@@ -1,7 +1,7 @@
 
 # Notes management system (MERN)
 
-Notes Management System is developed using mERN Stack to maintain the notes properly 
+Notes Management System is developed using MERN Stack to maintain the notes properly 
 by students. 
 ## Features
 
