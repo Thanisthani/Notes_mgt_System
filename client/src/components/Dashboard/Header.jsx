@@ -17,7 +17,7 @@ function Header() {
       <div className='w-full h-16 flex justify-between bg-gray-800 items-center overflow-hidden shadow-lg px-20'>
           <h1 className='text-white'>Admin Dashboard</h1>
           <div className='flex '>
-          <Link to="/user"><div className='uppercase  text-white text-sm bg-blue-700 py-1 px-3 mr-6'>Create User account</div></Link>
+          <Link to="/user"><div className='uppercase  text-white text-sm bg-cyan-800 py-1 px-3 mr-6'>Create User account</div></Link>
           <button className='uppercase  text-white text-sm bg-blue-700 py-1 px-3' onClick={logOut}>Log out </button>
           </div>
             </div>

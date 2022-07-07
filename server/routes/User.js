@@ -21,6 +21,6 @@ router.get("/:id", auth, getOneUser);
 
 // create user by admin
 
-router.post("/register", register);
+router.post("/register" , auth,register);
 
 module.exports = router; 

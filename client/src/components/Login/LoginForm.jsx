@@ -25,7 +25,7 @@ function LoginForm() {
       {
           if (response.data.user.accountType === "Admin")
           {
-              navigate("/dashboard/1");
+              navigate("/dashboard");
           }
           else {
               navigate("/home/1"); 
