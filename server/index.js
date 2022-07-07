@@ -17,7 +17,7 @@ const notesRoute = require("./routes/notes");
 
 const app = express();
 
-dotenv.config();
+dotenv.config({ path:'./env' });
 
 
 // mongoDB
