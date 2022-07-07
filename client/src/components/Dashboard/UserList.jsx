@@ -11,6 +11,7 @@ function UserList({pageno}) {
   const [isOpen, setIsopen] = useState(false);
   const [page, setPage] = useState(pageno);
   const [tpages, setTpages] = useState();
+  const [searchInput, setSearchInput] = useState();
 
   // popup
   const toggleOpen = (user) => {
@@ -20,25 +21,58 @@ function UserList({pageno}) {
     
   };
 
+  const handleSearchSubmit = async (event) => {
+
+    event.preventDefault();
+    console.log(searchInput); 
+    let newSearchUser = users.filter(user => (user.firstname.toLowerCase().includes(searchInput.toLowerCase())
+      || user.email.toLowerCase().includes(searchInput.toLowerCase())
+      || user._id.toLowerCase().includes(searchInput.toLowerCase())
+    ));
+    console.log(newSearchUser);
+   await setUsers(newSearchUser);
+  }
+//  searchInput.toLowerCase()
   
- 
+const fetchUser = async () =>
+{
+  setisLoading(true);
+  // const { data } = await api.getAll();
+  await api.getAll(page).then(async (res) => {
+    await setUsers(res.data.data);
+     setTpages(res.data.pages);
+   });
+  await setisLoading(false);
+  }
+
+
   useEffect(() => {
-    const fetchUser = async () =>
-    {
-      setisLoading(true);
-      // const { data } = await api.getAll();
-      await api.getAll(page).then(async (res) => {
-        await setUsers(res.data.data);
-         setTpages(res.data.pages);
-       });
-      await setisLoading(false);
-      }
+  
       fetchUser();
     },[page]);
     return (
-      <div className='flex justify-center'>
-        {isLoading ? <div className='mt-64 '><BeatLoader loading={isLoading} color="#1e0e80"/> </div> :
-          <div className='w-[350px]  pt-5 pb-10 flex flex-col items-center px-10 overflow-hidden shadow-lg border-1 mt-20'>
+      <div className='flex flex-col '>
+        {isLoading ? <div className='mt-64 self-center '><BeatLoader loading={isLoading} color="#1e0e80" /> </div> :
+          <div className=' self-center'>
+            {/* search */}
+            <div className='mt-8'>
+              <form onSubmit={
+                handleSearchSubmit
+              }>
+                <input type="text"
+                  name='searchInput'
+                  id="searchInput"
+                  className='border-2 rounded-xl mt-2 p-2 text-sm w-[500px] border-blue-900'
+                  placeholder='Search User by name, email, id '
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)} />
+                <button type="submit" className='ml-8 uppercase  text-white text-sm bg-blue-700 hover:bg-blue-600 py-3 px-5 mr-6'>Search</button>
+              </form>
+            </div>
+
+            {/* user list */}
+
+          <div className='w-[350px]  pt-5 pb-10 flex flex-col ml-28 items-center px-10 overflow-hidden shadow-lg border-1 mt-20'>
             <h2 className='mb-5'>User List</h2>
             {users.map((user) =>
             (
@@ -57,11 +91,13 @@ function UserList({pageno}) {
 
               </div>
             
-            ))}
+            ))
+              }
         
-          </div>
+            </div>
+            </div>
         }
-        <div className='fixed bottom-28'>
+        <div className='fixed self-center bottom-28'>
           <Pagination page={page} pages={tpages} changePage={setPage} />
        </div>
       
