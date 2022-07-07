@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { Formik } from "formik"
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../../actions/auth';
 import * as api from "../../api/index";
 import ErrorPopup from './ErrorPopup';
 
 function LoginForm() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOpen, setIsopen] = useState(false);
   const [error, setError] = useState();

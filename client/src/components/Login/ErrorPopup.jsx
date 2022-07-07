@@ -4,10 +4,6 @@ import { useNavigate } from 'react-router-dom';
 function ErrorPopup({ show, error,handle }) {
     const navigate = useNavigate();
 
-    const handlenavigate = () => {
-        
-        navigate("/login");
-    }
   return (
     <>
     {show &&

@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react'
 import * as api from "../../api/index"
 import BeatLoader from 'react-spinners/BeatLoader';
 import Popup from './Popup';
-import Pagination from '../Pagination/Pagination';
 
-function UserList({pageno}) {
+
+function UserList() {
   const [users, setUsers] = useState([]);
+  const [ousers,setOusers] =useState([]);
   const [puser, setPuser] = useState();
   const [isLoading, setisLoading] = useState(false);
   const [isOpen, setIsopen] = useState(false);
-  const [page, setPage] = useState(pageno);
-  const [tpages, setTpages] = useState();
   const [searchInput, setSearchInput] = useState();
 
   // popup
@@ -22,41 +21,48 @@ function UserList({pageno}) {
   };
 
   const handleSearchSubmit = async (event) => {
-
     event.preventDefault();
-    console.log(searchInput); 
-    let newSearchUser = users.filter(user => (user.firstname.toLowerCase().includes(searchInput.toLowerCase())
+    await console.log(ousers); 
+    let newSearchUser = ousers.filter(user => (user.firstname.includes(searchInput.toLowerCase())
       || user.email.toLowerCase().includes(searchInput.toLowerCase())
       || user._id.toLowerCase().includes(searchInput.toLowerCase())
     ));
-    console.log(newSearchUser);
-   await setUsers(newSearchUser);
+    console.log("neww swe", newSearchUser);
+    setUsers(newSearchUser);
+  //  await setUsers(newSearchUser);
   }
 //  searchInput.toLowerCase()
+
+  //   
+  // 
   
-const fetchUser = async () =>
+const fetchUser = async() =>
 {
   setisLoading(true);
-  // const { data } = await api.getAll();
-  await api.getAll(page).then(async (res) => {
-    await setUsers(res.data.data);
-     setTpages(res.data.pages);
-   });
+  const { data } = await api.getAll();
+  // await api.getAll().then(async (res) => {
+  //   await setUsers(res.data);
+  //  });
+  await setUsers(data);
+  setOusers(data);
   await setisLoading(false);
   }
 
 
   useEffect(() => {
   
-      fetchUser();
-    },[page]);
+    fetchUser();
+    console.log("user",users);
+  }, []);
+  
+
     return (
       <div className='flex flex-col '>
         {isLoading ? <div className='mt-64 self-center '><BeatLoader loading={isLoading} color="#1e0e80" /> </div> :
           <div className=' self-center'>
             {/* search */}
             <div className='mt-8'>
-              <form onSubmit={
+              <form onSubmit={ 
                 handleSearchSubmit
               }>
                 <input type="text"
@@ -97,9 +103,9 @@ const fetchUser = async () =>
             </div>
             </div>
         }
-        <div className='fixed self-center bottom-28'>
+        {/* <div className='fixed self-center bottom-28'>
           <Pagination page={page} pages={tpages} changePage={setPage} />
-       </div>
+       </div> */}
       
             </div>
       
